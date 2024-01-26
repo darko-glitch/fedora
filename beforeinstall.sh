@@ -5,7 +5,7 @@ sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-r
 sudo dnf install -y https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 # Install necessary packages and groups
-sudo dnf install -y @base-x gnome-extensions-app zsh zsh-autosuggestions gnome-shell gnome-terminal dnf-plugins-core gnome-calculator gnome-system-monitor gedit file-roller nautilus gnome-tweaks @development-tools
+sudo dnf install -y @base-x gnome-extensions-app zsh zsh-autosuggestions gnome-browser-connector gnome-shell gnome-terminal dnf-plugins-core gnome-calculator gnome-system-monitor gedit file-roller nautilus gnome-tweaks @development-tools
 
 # Install additional packages and groups
 sudo dnf group install -y "Hardware Support"
