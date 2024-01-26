@@ -8,10 +8,15 @@ gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
 gsettings set org.gnome.settings-daemon.plugins.color night-light-schedule-from 12.0
 gsettings set org.gnome.settings-daemon.plugins.color night-light-schedule-to 11.9
 
-echo "Minimize and Maximize Window Buttons added and Night Light settings configured."
+# Modify dnf.conf
+echo "max_parallel_downloads=10" | sudo tee -a /etc/dnf/dnf.conf
+echo "fastestmirror=true" | sudo tee -a /etc/dnf/dnf.conf
+echo "deltarpm=true" | sudo tee -a /etc/dnf/dnf.conf
 
-# Install dnf-plugins-core
-sudo dnf install -y dnf-plugins-core
+# Update system
+sudo dnf update -y
+
+echo "Minimize and Maximize Window Buttons added and Night Light settings configured."
 
 # Add Brave Browser repository
 sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
@@ -24,7 +29,30 @@ sudo dnf install -y brave-browser brave-keyring
 
 echo "Brave Browser installation completed."
 
-# Kali Linux theme setup
+# Install RPM Fusion repositories
+sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install -y https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+# Set hostname
+sudo hostnamectl set-hostname "dark"
+
+# Install dnf-plugins-core
+sudo dnf install -y dnf-plugins-core zsh zsh-autosuggestions mpv git wget steam curl gcc g++ ufw make gdb gnome-tweaks gnome-extensions-app gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel lame\* --exclude=lame-devel
+
+# Configure Firewall (UFW)
+sudo ufw limit 22/tcp
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw enable
+
+# Upgrade multimedia group
+sudo dnf group upgrade -y --with-optional Multimedia
+
+# Add user to groups
+sudo usermod -aG render,video dark
+
 cd ~/Downloads
 git clone https://gitlab.com/kalilinux/packages/kali-themes.git
 sudo mv -f kali-themes/share/themes/Kali* /usr/share/themes/
@@ -38,9 +66,6 @@ sudo chmod 755 $(sudo find /usr/share/icons/Flat* -type d)
 sudo chmod 644 $(sudo find /usr/share/icons/Flat* -type f)
 sudo gtk-update-icon-cache /usr/share/icons/Flat-Remix-Blue-Dark/
 
-# Install Zsh and Zsh autosuggestions
-sudo dnf install -y zsh zsh-autosuggestions
-
 # Download and apply Zsh configuration
 wget https://gitlab.com/kalilinux/packages/kali-defaults/-/raw/kali/master/etc/skel/.zshrc
 mv .zshrc ~/.zshrc
@@ -53,34 +78,13 @@ sudo cp ~/Downloads/kali-themes/share/qtermwidget5/color-schemes/Kali-Dark.color
 # Clean up by removing the cloned repository
 rm -rf kali-themes
 
-# Modify dnf.conf
-sudo nano /etc/dnf/dnf.conf <<EOF
-max_parallel_downloads=10
-fastestmirror=true
-deltarpm=true
-EOF
-
-# Install RPM Fusion repositories
-sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-sudo dnf install -y https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-
-# Install packages
-sudo dnf install -y mpv git wget steam curl gcc g++ ufw make gdb gnome-tweaks gnome-extensions-app
-
-# Install GStreamer plugins
-sudo dnf install -y gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
-
-# Install lame
-sudo dnf install -y lame\* --exclude=lame-devel
-
-# Upgrade multimedia group
-sudo dnf group upgrade -y --with-optional Multimedia
-
-# Set hostname
-sudo hostnamectl set-hostname "dark"
-
-# Add user to groups
-sudo usermod -aG render,video dark
+# Configure Firewall (UFW)
+sudo ufw limit 22/tcp
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw enable
 
 # Install Miniconda
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh
@@ -96,17 +100,5 @@ conda activate ai
 # Install TensorFlow-ROCm
 pip install tensorflow-rocm
 
-# Uninstall software packages
-sudo dnf remove -y boxes cheese mediawriter fedora-tour
-
-# Remove dependencies that are no longer needed
-sudo dnf autoremove -y
-
-# Clean up the package cache
-sudo dnf clean all
-
 # Update system
 sudo dnf update -y
-
-echo "Setup completed."
-
