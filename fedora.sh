@@ -37,7 +37,7 @@ sudo dnf install -y https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-non
 sudo hostnamectl set-hostname "dark"
 
 # Install dnf-plugins-core
-sudo dnf install -y dnf-plugins-core zsh zsh-autosuggestions @base-x gnome-extensions-app zsh zsh-autosuggestions gnome-browser-connector gnome-shell gnome-terminal dnf-plugins-core gnome-calculator gnome-system-monitor gedit file-roller nautilus gnome-tweaks @development-tools mpv git wget gnome-terminal-nautilus xdg-user-dirs xdg-user-dirs-gtk steam curl gcc g++ ufw make gdb gnome-tweaks gnome-extensions-app gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel lame\* --exclude=lame-devel
+sudo dnf install -y mpv git wget gnome-terminal-nautilus xdg-user-dirs xdg-user-dirs-gtk steam curl gcc g++ ufw make gdb gnome-tweaks gnome-extensions-app gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel lame\* --exclude=lame-devel
 
 # Set default target to graphical
 sudo systemctl set-default graphical.target
