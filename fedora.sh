@@ -105,13 +105,13 @@ pip install tensorflow-rocm
 wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
 sudo rpm -ivh epel-release-latest-9.noarch.rpm
 sudo crb enable
-sudo yum install kernel-headers kernel-devel
+sudo yum install kernel-headers kernel-devel -y
 # See prerequisites. Adding current user to Video and Render groups
 sudo usermod -a -G render,video $LOGNAME
-sudo yum install https://repo.radeon.com/amdgpu-install/6.0.2/rhel/9.3/amdgpu-install-6.0.60002-1.el9.noarch.rpm
-sudo yum clean all
-sudo yum install amdgpu-dkms
-sudo yum install rocm
+sudo yum install https://repo.radeon.com/amdgpu-install/6.0.2/rhel/9.3/amdgpu-install-6.0.60002-1.el9.noarch.rpm -y
+sudo yum clean all -y
+sudo yum install amdgpu-dkms -y
+sudo yum install rocm -y
 echo "Please reboot system for all settings to take effect."
 
 # Update system
