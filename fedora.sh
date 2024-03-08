@@ -119,5 +119,8 @@ sudo dnf install lact.rpm
 # enable lact to startup
 sudo systemctl enable --now lactd
 
+# fix amd repodata
+sudo rm -rf /etc/yum.repos.d/amdgpu.repo
+sudo mv -f amdgpu.repo /etc/yum.repos.d/ 
 # Update system
 sudo dnf update -y
