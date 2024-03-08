@@ -1,0 +1,13 @@
+[amdgpu]
+name=AMDGPU 6.0.2 repository
+baseurl=https://repo.radeon.com/amdgpu/6.0.2/rhel/9.3/main/x86_64/
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/amdgpu-install/rocm.gpg.key
+
+[amdgpu-src]
+name=AMDGPU 6.0.2 repository
+baseurl=https://repo.radeon.com/amdgpu/6.0.2/rhel/9.3/main/x86_64/
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/amdgpu-install/rocm.gpg.key
