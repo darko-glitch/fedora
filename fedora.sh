@@ -70,7 +70,7 @@ sudo chmod 644 $(sudo find /usr/share/icons/Flat* -type f)
 sudo gtk-update-icon-cache /usr/share/icons/Flat-Remix-Blue-Dark/
 
 # Download and apply Zsh configuration
-mv .zshrc ~/.zshrc
+mv zshrc ~/.zshrc
 chsh -s /bin/zsh
 autoload -Uz compinit promptinit
 
