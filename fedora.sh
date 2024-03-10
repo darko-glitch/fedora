@@ -115,7 +115,7 @@ sudo yum install rocm -y
 echo "Please reboot system for all settings to take effect."
 
 #install LACT to overclock GPU
-sudo dnf install lact.rpm
+sudo dnf install ~/fedora/lact.rpm
 # enable lact to startup
 sudo systemctl enable --now lactd
 
