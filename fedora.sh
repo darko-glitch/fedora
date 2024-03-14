@@ -2,7 +2,7 @@
 
 # Add Minimize and Maximize Window Buttons
 gsettings set org.gnome.desktop.wm.preferences button-layout ':minimize,maximize,close'
-
+gsettings set org.gnome.desktop.sound allow-volume-above-100-percent 'true'
 # Night Light Settings
 gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
 gsettings set org.gnome.settings-daemon.plugins.color night-light-schedule-from 12.0
@@ -70,7 +70,7 @@ sudo chmod 644 $(sudo find /usr/share/icons/Flat* -type f)
 sudo gtk-update-icon-cache /usr/share/icons/Flat-Remix-Blue-Dark/
 
 # Download and apply Zsh configuration
-mv zshrc ~/.zshrc
+mv ~/fedora/zshrc ~/.zshrc
 chsh -s /bin/zsh
 autoload -Uz compinit promptinit
 
@@ -115,7 +115,7 @@ sudo yum install rocm -y
 echo "Please reboot system for all settings to take effect."
 
 #install LACT to overclock GPU
-sudo dnf install ~/fedora/lact.rpm
+sudo dnf install ~/fedora/lact.rpm -y
 # enable lact to startup
 sudo systemctl enable --now lactd
 
